@@ -1,0 +1,8 @@
+[suite]
+id = cset-workflow
+task memory = 1G
+task time limit = 00:30:00
+
+[[dependencies]]
+graph = "start -> task1 -> task2"
+

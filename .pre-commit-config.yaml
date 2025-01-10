@@ -1,0 +1,35 @@
+# See https://pre-commit.com for more information
+---
+ci:
+  autoupdate_schedule: monthly
+
+repos:
+  - repo: https://github.com/codespell-project/codespell
+    rev: 193cd7d27cd571f79358af09a8fb8997e54f8fff  # frozen: v2.3.0
+    hooks:
+    - id: codespell
+      # Additional dependency needed until Python 3.11 is our minimum version.
+      additional_dependencies:
+        - tomli
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: 24d039e647a08707e6cb31e75e01844eeff925e7  # frozen: v0.6.2
+    hooks:
+      - id: ruff
+        args: [ --fix, --show-fixes, --exit-non-zero-on-fix ]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=10240']
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+        # Prevent PP files being inappropriately "fixed".
+        exclude: ^.+\.pp$
+      - id: trailing-whitespace
